@@ -20,7 +20,7 @@ function addRandomQuote() {
       ['I\'m not hiding anything that\'s hidden or found, or findiing \
       anything that\'s found or hidden. I\'m living my best life. \
       -Jamal, On My Block', 'They\'re relentless! -The Grinch'];
-
+      
   // Pick a random greeting.
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
