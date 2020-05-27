@@ -17,7 +17,7 @@
  */
 function addRandomQuote() {
   const quotes =
-      ['I\'m not hiding anything that\'s hidden or found, or findiing \
+      ['I\'m not hiding anything that\'s hidden or found, or finding \
       anything that\'s found or hidden. I\'m living my best life. \
       -Jamal, On My Block', 'They\'re relentless! -The Grinch'];
       

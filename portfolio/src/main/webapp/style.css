@@ -21,20 +21,18 @@ body {
     font-size: 275%;
 }
 
-#about-pic {
-    float: right;
-    width: 40%;
-    height: 60%;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-bottom: 0;
-}
-
 #about {
     background-image: url("/images/toba-memeoji2.jpg");
     background-repeat: no-repeat;
-    background-position: 80% 50%;
+    background-position: 80% 40%;
     background-size: 35%;
+}
+
+#about-text {
+    max-width: 40%;
+    font-size: 200%;
+    margin-left: 10%;
+    margin-top: 10%;
 }
 
 #quote-container {
