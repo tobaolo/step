@@ -17,9 +17,16 @@
  */
 function addRandomQuote() {
   const quotes =
-      ['I\'m not hiding anything that\'s hidden or found, or finding \
-      anything that\'s found or hidden. I\'m living my best life. \
-      -Jamal, On My Block', 'They\'re relentless! -The Grinch'];
+      ['Favorite Quote: I\'m not hiding anything that\'s hidden or \
+      found, or finding anything that\'s found or hidden. I\'m living \
+      my best life. -Jamal, On My Block', 'They\'re relentless! -The \
+      Grinch', 'Favorite Movie: The Grinch', 'Favorite Movie: Inception', 
+      'Favorite TV Show: Avatar The Last Airbender', 'Favortie Artist:  \
+      Kizz Daniel', 'Favorite Spotify Playlist: Mellow Bars',
+      'Favorite Programming Language: Python', 'Favorite Sport: Soccer',
+      'Favorite Food: Mama\'s Lasagna', 'Favorite Childhood Song: \
+      You\'re a Jerk', 'Something I Love to Watch But Cannot Do Myslef: \
+      Spoken Word Poetry', 'Favortie Snack: Jamaican Beef Patty'];
       
   // Pick a random greeting.
   const quote = quotes[Math.floor(Math.random() * quotes.length)];

@@ -1,46 +1,102 @@
 html, body {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-    position: static;
-}
+
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
+.page {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 500%;
+  text-align: center;
+}
+
+h2 {
+    font-size: 250%;
+}
+
 #home {
-   background-image: url("/images/toba-1-crop.jpg");
-   background-repeat: no-repeat;
-    background-size: 100%; 
-    text-align: center;
-    padding-top: 3%;
-    font-size: 275%;
+  background-image: url('/images/toba-1-crop.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%; 
+  padding-top: 3%;
 }
 
 #about {
-    background-image: url("/images/toba-memeoji2.jpg");
-    background-repeat: no-repeat;
-    background-position: 80% 40%;
-    background-size: 35%;
+  background-image: url('/images/toba-memeoji2.jpg');
+  background-position: 80% 40%;
+  background-repeat: no-repeat;
+  background-size: 35%;
 }
 
-#about-text {
-    max-width: 40%;
-    font-size: 200%;
-    margin-left: 10%;
-    margin-top: 10%;
+#about h2, p {
+  font-size: 2vw;
+  margin-left: 10%;
+  max-width: 40%;
 }
 
 #quote-container {
+  font-size: 2vw;
+  margin-left: 10%;
   margin-top: 20px;
+  max-width: 40%;
 }
 
-.page {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+.stack {
+  width: 100%;
+}
+
+#life {
+  background-color: #5e5d48;
+}
+
+.extended-page {
+  margin-top:10%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  flex: 25%;
+  max-width: 24.24%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other 
+instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
 }
