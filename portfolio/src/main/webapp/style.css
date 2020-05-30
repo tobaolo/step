@@ -1,9 +1,8 @@
 html, body {
+  font-family: Arial, Helvetica, sans-serif;
   height: 100%;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
 }
-
 
 #content {
   margin-left: auto;
@@ -40,7 +39,8 @@ h2 {
   background-size: 35%;
 }
 
-#about h2, p {
+#about h2,
+p {
   font-size: 2vw;
   margin-left: 10%;
   max-width: 40%;
@@ -53,19 +53,11 @@ h2 {
   max-width: 40%;
 }
 
-.stack {
-  width: 100%;
-}
-
 #life {
   background-color: #5e5d48;
 }
 
-.extended-page {
-  margin-top:10%;
-}
-
-.row {
+.gallery {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
@@ -74,7 +66,7 @@ h2 {
 /* Create four equal columns that sits next to each other */
 .column {
   flex: 25%;
-  max-width: 24.24%;
+  max-width:  calc(25% - 8px);
   padding: 0 4px;
 }
 
