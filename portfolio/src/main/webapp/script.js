@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * Fetches a welcome messgae to the home page.
+ * Fetches comments and appends them as list elements.
  */
 function getComments() {
   fetch('/data').then(response => response.text()).then((comments) => {
