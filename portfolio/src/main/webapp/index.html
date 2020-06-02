@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="sayWelcome()">
+  <body>
     <section id="home" class="page">
       <h1>Toba Olokungbemi</h1>
-      <h2 id="home-welcome"></h2>
     </section>
     <section id="about" class="page">
       <h2>Yeo! Welcome to my page!</h2>
@@ -74,6 +73,11 @@
           <img src="/images/animated.gif" loop="infintie">
         </div>
       </div>
+    </section>
+    <section id="comments">
+        <button button type="button" class="btn btn-outline-primary" 
+        onclick="getComments()">See Comments</button>
+      <ul id="comments-grid"></ul>
     </section>
   </body>
 </html>
