@@ -13,6 +13,14 @@
 // limitations under the License.
 
 /**
+ * Fetches a welcome messgae to the home page
+ */
+function sayWelcome() {
+    fetch('/data').then(response => response.text()).then((text) => {
+        document.getElementById('home-welcome').innerText = text;
+    })
+}
+/**
  * Adds a random quote to the page.
  */
 function addRandomQuote() {
@@ -35,3 +43,4 @@ function addRandomQuote() {
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
 }
+
