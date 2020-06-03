@@ -27,8 +27,7 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> commentList = new ArrayList<>(Arrays.asList("HE WAS NUMBER 1", 
-  "Wow. Guess what comment this is. Dos!", "Three! THREE! ThIrD yerrr"));;
+  ArrayList<String> commentList = new ArrayList<String>();;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -39,6 +38,18 @@ public class DataServlet extends HttpServlet {
     // Send the JSON as the response
     response.setContentType("application/json");
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get comment from form.
+    String comment = request.getParameter("text-input");
+
+    // Add comment to the commentsList.
+    commentList.add(comment);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
   }
 }
 
