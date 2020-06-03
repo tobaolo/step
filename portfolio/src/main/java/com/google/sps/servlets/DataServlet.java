@@ -27,17 +27,17 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> comment_list = new ArrayList<>(Arrays.asList("HE WAS NUMBER 1", 
+  ArrayList<String> commentList = new ArrayList<>(Arrays.asList("HE WAS NUMBER 1", 
   "Wow. Guess what comment this is. Dos!", "Three! THREE! ThIrD yerrr"));;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Convert comment_list into a JSON object.
+    // Convert comment_list into a JSON object.
     Gson gson = new Gson();
-    String json = gson.toJson(comment_list);
+    String json = gson.toJson(commentList);
 
     // Send the JSON as the response
-    response.setContentType("application/json;");
+    response.setContentType("application/json");
     response.getWriter().println(json);
   }
 }

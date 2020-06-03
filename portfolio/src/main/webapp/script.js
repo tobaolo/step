@@ -17,12 +17,12 @@
  */
 function getComments() {
   fetch('/data').then(response => response.text()).then((comments) => {
-    const comments_obj = JSON.parse(comments);
-    const comment_grid = document.getElementById('comments-grid');
-    comments_obj.forEach((comment) => {
-      var li = document.createElement("li");
+    const commentsObj = JSON.parse(comments);
+    const commentGrid = document.getElementById('comments-grid');
+    commentsObj.forEach((comment) => {
+      const li = document.createElement('li');
       li.innerText = comment;
-      comment_grid.appendChild(li);
+      commentGrid.appendChild(li);
     });
   });
 }
