@@ -13,13 +13,20 @@
 // limitations under the License.
 
 /**
- * Fetches a welcome messgae to the home page.
+ * Fetches comments and appends them as list elements.
  */
-function sayWelcome() {
-  fetch('/data').then(response => response.text()).then((text) => {
-    document.getElementById('home-welcome').innerText = text;
+function getComments() {
+  fetch('/data').then(response => response.text()).then((comments) => {
+    const commentsObj = JSON.parse(comments);
+    const commentGrid = document.getElementById('comments-grid');
+    commentsObj.forEach((comment) => {
+      const li = document.createElement('li');
+      li.innerText = comment;
+      commentGrid.appendChild(li);
+    });
   });
 }
+
 /**
  * Adds a random quote to the page.
  */
