@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getComments()">
     <section id="home" class="page">
       <h1>Toba Olokungbemi</h1>
     </section>
@@ -74,10 +74,13 @@
         </div>
       </div>
     </section>
-    <section id="comments">
-      <button type="button" class="btn btn-outline-primary" 
-      onclick="getComments()">See Comments</button>
+    <section id="comments" >
       <ul id="comments-grid"></ul>
+      <form action="/data" method="POST">
+        <label for="comment-box">Drop a Comment!</label>
+        <textarea name="text-input" id="comment-box"></textarea>
+        <input type="submit" >
+      </form>
     </section>
   </body>
 </html>
