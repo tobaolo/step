@@ -75,4 +75,21 @@ public class DataServlet extends HttpServlet {
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
   }
+
+  /** Returns the comment limit entered from HTTP request param. */
+  private int getCommentLimit(HttpServletRequest request) {
+    // Get the input from the form.
+    String commentLimitString = request.getParameter("player-choice");
+
+    // Convert the input to an int.
+    int commentLimit;
+    try {
+      commentLimit= Integer.parseInt(commentLimitString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + commentLimitString);
+      return -1;
+    }
+
+    return commentLimit;
+  }
 }
