@@ -31,20 +31,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     // Retreive comments from database.
     Query query = new Query("Comment").addSort("text", SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    // Limit number of comments and save in  comments array.
     List<String> comments = new ArrayList<>();
     int counter = 0;
     int commentLimit = getCommentLimit(request);
@@ -61,15 +60,14 @@ public class DataServlet extends HttpServlet {
     // Convert comments to JSON and send as the response.
     Gson gson = new Gson();
 
-    response.setContentType("application/json;");
+    response.setContentType("application/json");
     response.getWriter().println(gson.toJson(comments));
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get comment from form.
-    String text= request.getParameter("text-input");
-    long timestamp = System.currentTimeMillis();
+    String text = request.getParameter("text-input");
 
     // Store comments as entities in database.
     Entity commentEntity = new Entity("Comment");

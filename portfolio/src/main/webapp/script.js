@@ -17,8 +17,9 @@
  */
 function getComments() {
   const commentLimit = document.getElementById('limit-comments').value;
-  console.log(commentLimit)
-  fetch('/data?limit-comments=' + commentLimit).then(response => response.text()).then((comments) => {
+  fetch('/data?limit-comments=' + commentLimit)
+  .then(response => response.text())
+  .then((comments) => {
     const commentsObj = JSON.parse(comments);
     const commentGrid = document.getElementById('comments-grid');
     commentGrid.innerHTML = ""
