@@ -16,9 +16,12 @@
  * Fetches comments and appends them as list elements.
  */
 function getComments() {
-  fetch('/data').then(response => response.text()).then((comments) => {
+  const commentLimit = document.getElementById('limit-comments').value;
+  console.log(commentLimit)
+  fetch('/data?limit-comments=' + commentLimit).then(response => response.text()).then((comments) => {
     const commentsObj = JSON.parse(comments);
     const commentGrid = document.getElementById('comments-grid');
+    commentGrid.innerHTML = ""
     commentsObj.forEach((comment) => {
       const li = document.createElement('li');
       li.innerText = comment;

@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -46,9 +46,16 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     List<String> comments = new ArrayList<>();
+    int counter = 0;
+    int commentLimit = getCommentLimit(request);
+
     for (Entity entity: results.asIterable()) {
-        String text = (String) entity.getProperty("text");
-        comments.add(text);
+      String text = (String) entity.getProperty("text");
+      comments.add(text);
+      counter++;
+      if (counter == commentLimit) {
+        break;
+      }
     }
 
     // Convert comments to JSON and send as the response.
@@ -79,16 +86,10 @@ public class DataServlet extends HttpServlet {
   /** Returns the comment limit entered from HTTP request param. */
   private int getCommentLimit(HttpServletRequest request) {
     // Get the input from the form.
-    String commentLimitString = request.getParameter("player-choice");
+    String commentLimitString = request.getParameter("limit-comments");
 
     // Convert the input to an int.
-    int commentLimit;
-    try {
-      commentLimit= Integer.parseInt(commentLimitString);
-    } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + commentLimitString);
-      return -1;
-    }
+    int commentLimit = Integer.parseInt(commentLimitString);
 
     return commentLimit;
   }
