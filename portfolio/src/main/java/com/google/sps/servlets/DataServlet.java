@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/** Servlet that returns some example content. */
+/** Servlet that returns comment content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -72,7 +72,6 @@ public class DataServlet extends HttpServlet {
     // Store comments as entities in database.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
-    commentEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);  

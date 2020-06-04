@@ -32,6 +32,14 @@ function getComments() {
 }
 
 /**
+ * Post request to delete comments.
+ */
+function deleteComments() {
+  fetch('/delete-data', {method: 'post'})
+  .then(getComments());
+}
+
+/**
  * Adds a random quote to the page.
  */
 function addRandomQuote() {
