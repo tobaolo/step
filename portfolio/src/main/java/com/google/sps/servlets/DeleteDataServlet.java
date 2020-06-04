@@ -32,15 +32,17 @@ public class DeleteDataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+    // Load comments from database.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query = new Query("Comment");
     PreparedQuery results = datastore.prepare(query);
 
+    // Delete each comment.
     for (Entity comment : results.asIterable()) {
       datastore.delete(comment.getKey());
     }
 
+    // Return empty response.
     response.setContentType("text/html");
     response.getWriter().println("");
   }
