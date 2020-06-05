@@ -11,7 +11,7 @@ html, body {
 }
 
 .page {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
 }
@@ -91,4 +91,45 @@ instead of next to each other */
     flex: 100%;
     max-width: 100%;
   }
+}
+
+@media screen and (max-height: 600px) {
+  #comments-grid {
+    max-height: 300px
+  }
+} 
+
+@media screen and (max-height: 2000px) {
+  #comments-grid {
+    max-height: 600px
+  }
+} 
+
+#comments {
+  margin: auto;
+  margin-top: 55px;
+  max-width: 650px;
+}
+
+#comments-grid {
+  margin-top: 70px; 
+  overflow: scroll;
+  min-height: 600px;
+}
+
+#comment-box-label {
+  width: 100%;
+}
+
+#comment-box {
+  width: 100%;
+}
+
+#limit-comments{
+  float: right;
+}
+
+#delete {
+  float: right;
+  margin-top: 10px;
 }

@@ -74,23 +74,24 @@
         </div>
       </div>
     </section>
-    <section id="comments" >
-      <ul id="comments-grid"></ul>
+    <section id="comments" class="page">
+      <h1>Let's Chat</h1>
+      <ul id="comments-grid" class="list-group"></ul>
       <form action="/data" method="POST">
-        <label for="comment-box">Drop a Comment!</label>
+        <label for="comment-box" id="comment-box-label">Drop a Comment!</label>
         <textarea name="text-input" id="comment-box"></textarea>
-        <label for="limit-comments">Number of Comments</label>
+        <input type="submit" class="btn-success">
         <select id="limit-comments" onchange="getComments()">
+          <option value="5" disabled selected>Comments per View</option>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
           <option value="-1">All</option>
         </select>
-        <input type="submit" >
       </form>
-      <button type="button" class="btn btn-outline-primary" 
-          onclick="deleteComments()">Delete Comments</button>
+      <button type="button" class="btn btn-danger" id="delete"
+          onclick="deleteComments()">Delete All Comments</button>
     </section>
   </body>
 </html>
