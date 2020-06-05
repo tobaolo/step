@@ -77,7 +77,7 @@
     <section id="comments" class="page">
       <h1>Let's Chat</h1>
       <ul id="comments-grid" class="list-group"></ul>
-      <form action="/data" method="POST">
+      <form action="/data" method="POST" onsubmit="return validateText()">
         <label for="comment-box" id="comment-box-label">Drop a Comment!</label>
         <textarea name="text-input" id="comment-box"></textarea>
         <input type="submit" class="btn-success">
@@ -87,7 +87,7 @@
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
-          <option value="-1">All</option>
+          <option value="1000">1000</option>
         </select>
       </form>
       <button type="button" class="btn btn-danger" id="delete"

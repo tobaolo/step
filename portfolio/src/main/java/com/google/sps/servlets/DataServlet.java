@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
     // Get list of text from comment entities.
     List<String> comments = new ArrayList<>();
     for (Entity comment : results) {
-        comments.add((String) comment.getProperty("text"));
+      comments.add((String) comment.getProperty("text"));
     }
 
     // Convert comments to JSON and send as the response.

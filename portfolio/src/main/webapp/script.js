@@ -40,6 +40,17 @@ function deleteComments() {
 }
 
 /**
+ * Validates whether text has been inputted before submitting.
+ */
+function validateText() {
+  const comment = document.getElementById('comment-box').value.trim();
+  if (comment == "") {
+      alert('Cannot submit an empty comment.');
+      return false;
+  }
+}
+
+/**
  * Adds a random quote to the page.
  */
 function addRandomQuote() {
