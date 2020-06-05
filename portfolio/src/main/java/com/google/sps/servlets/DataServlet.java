@@ -17,6 +17,8 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.FetchOptions.Builder;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -37,24 +39,17 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Retreive comments from database.
-    Query query = new Query("Comment").addSort("text", SortDirection.ASCENDING);
-
+    // Retreive comment entities from database based on comment limit.
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
 
-    // Limit number of comments and save in  comments array.
-    List<String> comments = new ArrayList<>();
-    int counter = 0;
     int commentLimit = getCommentLimit(request);
+    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(commentLimit));
 
-    for (Entity entity: results.asIterable()) {
-      String text = (String) entity.getProperty("text");
-      comments.add(text);
-      counter++;
-      if (counter == commentLimit) {
-        break;
-      }
+    // Get list of text from comment entities.
+    List<String> comments = new ArrayList<>();
+    for (Entity comment : results) {
+        comments.add((String) comment.getProperty("text"));
     }
 
     // Convert comments to JSON and send as the response.
@@ -68,10 +63,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get comment from form.
     String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
 
     // Store comments as entities in database.
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);  

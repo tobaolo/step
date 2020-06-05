@@ -18,11 +18,11 @@
 function getComments() {
   const commentLimit = document.getElementById('limit-comments').value;
   fetch('/data?limit-comments=' + commentLimit)
-  .then(response => response.text())
-  .then((comments) => {
+      .then(response => response.text())
+      .then((comments) => {
     const commentsObj = JSON.parse(comments);
     const commentGrid = document.getElementById('comments-grid');
-    commentGrid.innerHTML = ""
+    commentGrid.innerHTML = '';
     commentsObj.forEach((comment) => {
       const li = document.createElement('li');
       li.innerText = comment;
@@ -35,8 +35,7 @@ function getComments() {
  * Post request to delete comments.
  */
 function deleteComments() {
-  fetch('/delete-data', {method: 'post'})
-  .then(getComments());
+  fetch('/delete-data', {method: 'post'}).then(getComments());
 }
 
 /**
