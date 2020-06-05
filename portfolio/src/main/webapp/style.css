@@ -55,12 +55,18 @@ p {
 
 #life {
   background-color: #5e5d48;
+  padding-top: 50px;
+}
+
+#life h1 {
+  color: white;
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 4px;
+  padding: 40px 0px 0px 25px;
+  padding-top: 40px;
 }
 
 /* Create four equal columns that sits next to each other */
