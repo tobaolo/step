@@ -95,13 +95,13 @@ instead of next to each other */
 
 @media screen and (max-height: 600px) {
   #comments-grid {
-    max-height: 300px
+    height: 300px
   }
 } 
 
 @media screen and (max-height: 2000px) {
   #comments-grid {
-    max-height: 600px
+    height: 600px
   }
 } 
 
@@ -114,7 +114,6 @@ instead of next to each other */
 #comments-grid {
   margin-top: 70px; 
   overflow: scroll;
-  min-height: 600px;
 }
 
 #comment-box-label {
