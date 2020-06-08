@@ -83,8 +83,13 @@ public class DataServlet extends HttpServlet {
     String commentLimitString = request.getParameter("limit-comments");
 
     // Convert the input to an int.
-    int commentLimit = Integer.parseInt(commentLimitString);
-
+    int commentLimit;
+    if (commentLimitString.equals("")) {
+      commentLimit = 1000;
+    } else {
+      commentLimit = Integer.parseInt(commentLimitString);
+    }
+    
     return commentLimit;
   }
 }
