@@ -26,7 +26,7 @@ function getComments() {
     commentsObj.forEach((comment) => {
       const li = document.createElement('li');
       li.innerText = comment;
-      li.classList.add("list-group-item");
+      li.classList.add('list-group-item');
       commentGrid.appendChild(li);
     });
   });
