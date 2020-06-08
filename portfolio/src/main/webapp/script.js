@@ -44,9 +44,9 @@ function deleteComments() {
  */
 function validateText() {
   const comment = document.getElementById('comment-box').value.trim();
-  if (comment == "") {
-      alert('Cannot submit an empty comment.');
-      return false;
+  if (!comment) {
+    alert('Cannot submit an empty comment.');
+    return false;
   }
 }
 
