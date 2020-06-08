@@ -49,7 +49,7 @@ public class DataServlet extends HttpServlet {
     // Get list of text from comment entities.
     List<String> comments = new ArrayList<>();
     for (Entity comment : results) {
-        comments.add((String) comment.getProperty("text"));
+      comments.add((String) comment.getProperty("text"));
     }
 
     // Convert comments to JSON and send as the response.
@@ -83,8 +83,13 @@ public class DataServlet extends HttpServlet {
     String commentLimitString = request.getParameter("limit-comments");
 
     // Convert the input to an int.
-    int commentLimit = Integer.parseInt(commentLimitString);
-
+    int commentLimit;
+    if (commentLimitString.equals("")) {
+      commentLimit = 1000;
+    } else {
+      commentLimit = Integer.parseInt(commentLimitString);
+    }
+    
     return commentLimit;
   }
 }

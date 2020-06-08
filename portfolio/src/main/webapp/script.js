@@ -26,6 +26,7 @@ function getComments() {
     commentsObj.forEach((comment) => {
       const li = document.createElement('li');
       li.innerText = comment;
+      li.classList.add('list-group-item');
       commentGrid.appendChild(li);
     });
   });
@@ -36,6 +37,17 @@ function getComments() {
  */
 function deleteComments() {
   fetch('/delete-data', {method: 'post'}).then(getComments());
+}
+
+/**
+ * Validates whether text has been inputted before submitting.
+ */
+function validateText() {
+  const comment = document.getElementById('comment-box').value.trim();
+  if (!comment) {
+    alert('Cannot submit an empty comment.');
+    return false;
+  }
 }
 
 /**

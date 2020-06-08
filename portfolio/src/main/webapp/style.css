@@ -11,8 +11,8 @@ html, body {
 }
 
 .page {
-  height: 100%;
   margin: 0;
+  min-height: 100%;
   overflow: hidden;
 }
 
@@ -22,7 +22,7 @@ h1 {
 }
 
 h2 {
-    font-size: 250%;
+  font-size: 250%;
 }
 
 #home {
@@ -55,12 +55,17 @@ p {
 
 #life {
   background-color: #5e5d48;
+  padding-top: 50px;
+}
+
+#life h1 {
+  color: white;
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 4px;
+  padding: 40px 0 0 25px;
 }
 
 /* Create four equal columns that sits next to each other */
@@ -91,4 +96,43 @@ instead of next to each other */
     flex: 100%;
     max-width: 100%;
   }
+}
+
+@media screen and (max-height: 600px) {
+  #comments-grid {
+    height: 300px
+  }
+} 
+
+@media screen and (max-height: 2000px) {
+  #comments-grid {
+    height: 600px
+  }
+} 
+
+#comments {
+  margin: 55px auto auto;
+  max-width: 650px;
+}
+
+#comments-grid {
+  margin-top: 70px; 
+  overflow: scroll;
+}
+
+#comment-box-label {
+  width: 100%;
+}
+
+#comment-box {
+  width: 100%;
+}
+
+#limit-comments{
+  float: right;
+}
+
+#delete {
+  float: right;
+  margin-top: 10px;
 }
