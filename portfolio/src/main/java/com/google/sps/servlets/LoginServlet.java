@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
       // Get user credentials.
       User user = userService.getCurrentUser();
       String userEmail = user.getEmail();
-      String logoutURL = userService.createLogoutURL("/user");
+      String logoutURL = userService.createLogoutURL("/");
 
       // Load credentials into JSON object.
       loginStatusInfo.put("email", userEmail);
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
       loginStatusInfo.put("isLoggedIn", new Boolean(true));
 
     } else {
-      String loginURL = userService.createLoginURL("/user");
+      String loginURL = userService.createLoginURL("/");
 
       // Load credentials into JSON object.
       loginStatusInfo.put("loginURL", loginURL);
