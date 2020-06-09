@@ -20,8 +20,8 @@ function getComments() {
   fetch('/data?limit-comments=' + commentLimit)
       .then(response => response.text())
       .then((comments) => {
-    const commentsObj = JSON.parse(comments);
     const commentGrid = document.getElementById('comments-grid');
+    const commentsObj = JSON.parse(comments);
     commentGrid.innerHTML = '';
     commentsObj.forEach((comment) => {
       const li = document.createElement('li');
@@ -29,6 +29,20 @@ function getComments() {
       li.classList.add('list-group-item');
       commentGrid.appendChild(li);
     });
+  });
+  const commentForm = document.getElementById('comment-form');
+  fetch('/user').then((response) => response.text()).then((loginStatus) => {
+    console.log(loginStatus);
+    loginObj = JSON.parse(loginStatus);
+    console.log(loginObj);
+    if (loginObj.isLoggedIn) {
+      commentForm.style.display = 'block';
+    } else {
+      const loginLine = document.createElement('p');
+      loginLine.innerHTML = 'Sign in <a href=\"' + loginObj.loginURL + 
+          '">Here</a> to leave a comment';
+      document.getElementById('comments').appendChild(log);
+    }
   });
 }
 

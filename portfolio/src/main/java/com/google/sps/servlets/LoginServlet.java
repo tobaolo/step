@@ -25,8 +25,11 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.oauth.OAuthServiceFailureException;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
+import java.util.HashMap;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,25 +40,31 @@ public class LoginServlet extends HttpServlet {
   
   @Override 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Set response type.
-    response.setContentType("text/html");
-    
     UserService userService = UserServiceFactory.getUserService();
+    Map loginStatusInfo = new HashMap();
 
-    // If user is logged in, get user credentials and create logout link.
     if (userService.isUserLoggedIn()) {
+      // Get user credentials.
       User user = userService.getCurrentUser();
       String userEmail = user.getEmail();
       String logoutURL = userService.createLogoutURL("/user");
-      
-      response.getWriter().println("Email: " + userEmail);
-      response.getWriter().println("Logout  <a href=\"" + logoutURL + "\">here</a>");
 
-    // If user is not logged in, show log in info.
+      // Load credentials into JSON object.
+      loginStatusInfo.put("email", userEmail);
+      loginStatusInfo.put("logoutURL", logoutURL);
+      loginStatusInfo.put("isLoggedIn", new Boolean(true));
+
     } else {
       String loginURL = userService.createLoginURL("/user");
-      
-      response.getWriter().println("Login  <a href=\"" + loginURL + "\">here</a>");
+
+      // Load credentials into JSON object.
+      loginStatusInfo.put("loginURL", loginURL);
+      loginStatusInfo.put("isLoggedIn", new Boolean(false));
     }
+
+    // Convert to JSON and send as response.
+    Gson gson = new Gson();
+    response.setContentType("application/json");
+    response.getWriter().println(gson.toJson(loginStatusInfo));
   }
 }

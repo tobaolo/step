@@ -128,6 +128,10 @@ instead of next to each other */
   width: 100%;
 }
 
+#comment-form {
+  display: none;
+}
+
 #limit-comments{
   float: right;
 }
