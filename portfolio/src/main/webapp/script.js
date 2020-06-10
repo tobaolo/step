@@ -16,9 +16,7 @@
  * Fetches comments and appends them as list elements.
  */
 function getComments() {
-  
   fetch('/user').then((response) => response.text()).then((loginStatus) => {
-
     loginObj = JSON.parse(loginStatus);
     const commentLimit = document.getElementById('limit-comments').value;
 
@@ -26,30 +24,29 @@ function getComments() {
     fetch('/data?limit-comments=' + commentLimit)
         .then(response => response.text())
         .then((comments) => {
-      const commentGrid = document.getElementById('comments-grid');
-      const commentsObj = JSON.parse(comments);
-      commentGrid.innerHTML = '';
-      commentsObj.forEach((comment) => {
-        const li = document.createElement('li');
-        li.innerText = Object.keys(comment)[0] + ': ' 
-            + Object.values(comment)[0];
-        li.classList.add('list-group-item');
-        commentGrid.appendChild(li);
+          const commentGrid = document.getElementById('comments-grid');
+          const commentsObj = JSON.parse(comments);
+          commentGrid.innerHTML = '';
+          commentsObj.forEach((comment) => {
+            const li = document.createElement('li');
+            li.append(Object.keys(comment)[0], ': ', 
+                Object.values(comment)[0]);
+            li.classList.add('list-group-item');
+            commentGrid.appendChild(li);
+          });
         });
-      });
 
     // Determine if user is logged in and display comment submission if logged.
+    const logLink = document.createElement('a');
+    logLink.append(' Here ');
+    
     if (loginObj.isLoggedIn) {
-      document.getElementById('comment-form').style.display = 'block';
-      const logoutLine = document.createElement('p');
-      logoutLine.innerHTML = 'Logout <a href=\"' + loginObj.logoutURL + 
-          '">Here</a>';
-      document.getElementById('comments').appendChild(logoutLine);
+      document.getElementById('comment-form').classList.remove("isHidden");
+      logLink.setAttribute('href', loginObj.logoutURL);
+      document.getElementById('comments').append('Logout', logLink);
     } else {
-      const loginLine = document.createElement('p');
-      loginLine.innerHTML = 'Sign in <a href=\"' + loginObj.loginURL + 
-          '">Here</a> to leave a comment';
-      document.getElementById('comments').appendChild(loginLine);
+      logLink.setAttribute('href', loginObj.loginURL);
+      document.getElementById('comments').append('Sign in', logLink, 'to leave a comment');
     }
   });
 }
