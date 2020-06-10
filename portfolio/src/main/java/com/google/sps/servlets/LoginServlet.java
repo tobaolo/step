@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
   @Override 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
-    Map loginStatusInfo = new HashMap();
+    Map loginStatusInfoMap = new HashMap();
 
     if (userService.isUserLoggedIn()) {
       // Get user credentials.
@@ -50,21 +50,21 @@ public class LoginServlet extends HttpServlet {
       String logoutURL = userService.createLogoutURL("/");
 
       // Load credentials into JSON object.
-      loginStatusInfo.put("email", userEmail);
-      loginStatusInfo.put("logoutURL", logoutURL);
-      loginStatusInfo.put("isLoggedIn", new Boolean(true));
+      loginStatusInfoMap.put("email", userEmail);
+      loginStatusInfoMap.put("logoutURL", logoutURL);
+      loginStatusInfoMap.put("isLoggedIn", new Boolean(true));
 
     } else {
       String loginURL = userService.createLoginURL("/");
 
       // Load credentials into JSON object.
-      loginStatusInfo.put("loginURL", loginURL);
-      loginStatusInfo.put("isLoggedIn", new Boolean(false));
+      loginStatusInfoMap.put("loginURL", loginURL);
+      loginStatusInfoMap.put("isLoggedIn", new Boolean(false));
     }
 
     // Convert to JSON and send as response.
     Gson gson = new Gson();
     response.setContentType("application/json");
-    response.getWriter().println(gson.toJson(loginStatusInfo));
+    response.getWriter().println(gson.toJson(loginStatusInfoMap));
   }
 }
