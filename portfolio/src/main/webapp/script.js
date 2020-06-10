@@ -31,7 +31,8 @@ function getComments() {
       commentGrid.innerHTML = '';
       commentsObj.forEach((comment) => {
         const li = document.createElement('li');
-        li.innerText = comment;
+        li.innerText = Object.keys(comment)[0] + ': ' 
+            + Object.values(comment)[0];
         li.classList.add('list-group-item');
         commentGrid.appendChild(li);
         });
