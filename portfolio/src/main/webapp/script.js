@@ -41,12 +41,13 @@ function getComments() {
     logLink.append(' Here ');
     
     if (loginObj.isLoggedIn) {
-      document.getElementById('comment-form').classList.remove("isHidden");
+      document.getElementById('comment-form').classList.remove('isHidden');
       logLink.setAttribute('href', loginObj.logoutURL);
       document.getElementById('comments').append('Logout', logLink);
     } else {
       logLink.setAttribute('href', loginObj.loginURL);
-      document.getElementById('comments').append('Sign in', logLink, 'to leave a comment');
+      document.getElementById('comments')
+          .append('Sign in', logLink, 'to leave a comment');
     }
   });
 }
