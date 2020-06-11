@@ -105,22 +105,21 @@ google.charts.setOnLoadCallback(drawChart);
  */
 function drawChart() {
   var data= new google.visualization.arrayToDataTable(
-    [['Prases'],
-    ['I want to change the world'],
-    ['I am enjoying my time'],
-    ['I want to go back to school'],
-    ['I miss my friends'],
-    ['I am 19'],
-    ['I study Computer Science'],
-    ['I study African History'],
-    ['I want a massage'],
-    ['I miss my life at school'],
-    ['I have traveled to 10+ US States'],
-    ['I have traveled to 3 continents'],
-    ['I have traveled to Nigeria'],
-    ['I am Nigerian'],
-    ['I want to learn to cook']
-    ]
+      [['Prases'],
+      ['I want to change the world'],
+      ['I am enjoying my time'],
+      ['I want to go back to school'],
+      ['I miss my friends'],
+      ['I am 19'],
+      ['I study Computer Science'],
+      ['I study African History'],
+      ['I want a massage'],
+      ['I miss my life at school'],
+      ['I have traveled to 10+ US States'],
+      ['I have traveled to 3 continents'],
+      ['I have traveled to Nigeria'],
+      ['I am Nigerian'],
+      ['I want to learn to cook']]
   );
 
   var options = {
@@ -131,6 +130,5 @@ function drawChart() {
   };
 
   var wordtree = new google.visualization.WordTree(document.getElementById('wordtree-page'));
-
   wordtree.draw(data, options);
 }
