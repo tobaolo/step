@@ -14,9 +14,50 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.FetchOptions.Builder;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.*;
+import java.util.Arrays; 
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /** Servlet that returns wordtree content. */
 @WebServlet("/wordtree")
 public class WordTree extends HTTPServlet {
+  
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("WordTreeSentence");
+
+    List<Entity> sentenceEntityList = query.prepare(photoQuery)
+        .asList(FetchOptions.Builder.withDefaults());
+    
+     // Get list of text from comment entities.
+    List<String> sentenceList = new ArrayList<>();
+    for (Entity sentence : sentenceEntityList) {
+      String text = (String) comment.getProperty("text");
+      sentenceList.add(text);
+
+    // Convert comments to JSON and send as the response.
+    Gson gson = new Gson();
+
+    response.setContentType("application/json");
+    response.getWriter().println(gson.toJson(sentenceList));
+    }
+  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
