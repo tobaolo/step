@@ -16,7 +16,6 @@
  * Fetches comments and appends them as list elements.
  */
 function getComments() {
-  
   const commentLimit = document.getElementById('limit-comments').value;
 
   // Get the comments from the database.
@@ -35,14 +34,15 @@ function getComments() {
           commentGrid.appendChild(li);
         });
       });
-    // Determine if user is logged in and display comment submission if logged.
-    
 }
 
+/**
+ * Determine if user is logged in and display comment submission if logged.
+ */
 function getLogin() {
-
+  // Load the comments onto the page.
   getComments();
-  
+
   fetch('/user').then((response) => response.text()).then((loginStatus) => { 
     loginObj = JSON.parse(loginStatus);
 
