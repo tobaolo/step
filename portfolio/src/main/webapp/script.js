@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {packages:['wordtree']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChart); 
+
 /**
  * Fetches comments and appends them as list elements.
  */
@@ -103,19 +109,15 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {packages:['wordtree']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawChart); 
-
 /**
  * Add a chart to the page.
  */
 function drawChart() {
-  fetch('/wordtree').then((response) => response.text()).then((sentenceList) => {
-    console.log(JSON.parse(sentenceList));
-    var data = new google.visualization.arrayToDataTable(JSON.parse(sentenceList));
+  fetch('/wordtree').then((response) => response.text()).then((sentenceJSONList) => {
+    sentenceListObj = JSON.parse(sentenceJSONList);
+    const dataList = [['Sentences']].concat(sentenceListObj);
+    console.log(dataList);
+    var data = new google.visualization.arrayToDataTable(dataList);
 
     var options = {
       wordtree: {

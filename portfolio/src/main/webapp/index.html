@@ -5,7 +5,7 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
   </head>
   <body onload="loadFunctions()">
@@ -76,11 +76,11 @@
       </div>
     </section>
     <section id="wordtree-page" class="page">
-      <form id="wordtree-text" action="/wordtree" methods="POST">
+      <div id="wordtree-div"></div>
+      <form id="wordtree-text" action="/wordtree" method="POST">
         <textarea name="sentence-text"></textarea>
         <input type="submit" class="btn-success">
       </form>
-      <div id="wordtree-div"></div>
     </section>	 
     <section id="comments" class="page">
       <h1>Let's Chat</h1>
