@@ -5,10 +5,10 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="loadFunctions()">
     <section id="home" class="page">
       <h1>Toba Olokungbemi</h1>
     </section>
@@ -29,10 +29,10 @@
       <h1>Life Before Quarantine</h1>
       <div class="gallery">
         <div class="column">
-          <img src="/images/IMG_0011.JPG">
-          <img src="/images/IMG_0098.PNG">
-          <img src="/images/IMG_6249.JPG">
-          <img src="/images/IMG_0130.JPG">
+          <img src="/images/IMG_0011.jpg">
+          <img src="/images/IMG_0098.png">
+          <img src="/images/IMG_6249.jpg">
+          <img src="/images/IMG_0130.jpg">
           <img src="/images/IMG_0171.jpg">
           <img src="/images/IMG_0725.jpg">
           <img src="/images/IMG_0843.jpg">
@@ -44,32 +44,32 @@
           <img src="/images/IMG_1219.jpg">
           <img src="/images/IMG_1275.jpg">
           <img src="/images/IMG_1557.jpg">
-          <img src="/images/IMG_2279.JPG">
+          <img src="/images/IMG_2279.jpg">
           <img src="/images/IMG_2482.jpg">
-          <img src="/images/IMG_4824.JPG">
+          <img src="/images/IMG_4824.jpg">
           <img src="/images/img12.jpg">
         </div>
         <div class="column">
           <img src="/images/img1.jpg">
           <img src="/images/img2.jpg">
           <img src="/images/img3.jpg">
-          <img src="/images/IMG_3952.JPG">
+          <img src="/images/IMG_3952.jpg">
           <img src="/images/img5.jpg">
           <img src="/images/IMG_5986.jpg">
           <img src="/images/IMG_3563.jpg">
           <img src="/images/IMG_4171.jpg">
           <img src="/images/IMG_4108.jpg">
           <img src="/images/img4.jpg">
-        </div>
+        </div>  
         <div class="column">
-          <img src="/images/IMG_2512.JPG">
-          <img src="/images/IMG_2592.JPG">
-          <img src="/images/IMG_2863.GIF" loop="infintie">
-          <img src="/images/IMG_2941.JPG">
+          <img src="/images/IMG_2512.jpg">
+          <img src="/images/IMG_2592.jpg">
+          <img src="/images/IMG_2863.gif" loop="infintie">
+          <img src="/images/IMG_2941.jpg">
           <img src="/images/IMG_3228.jpg">
-          <img src="/images/IMG_3339.JPG">
-          <img src="/images/IMG_5673.PNG">
-          <img src="/images/IMG_5651.JPG">
+          <img src="/images/IMG_3339.jpg">
+          <img src="/images/IMG_5673.png">
+          <img src="/images/IMG_5651.jpg">
           <img src="/images/img6.jpg">
           <img src="/images/animated.gif" loop="infintie">
         </div>
@@ -80,11 +80,12 @@
         <textarea name="sentence-text"></textarea>
         <input type="submit" class="btn-success">
       </form>
-    </section>
+      <div id="wordtree-div"></div>
+    </section>	 
     <section id="comments" class="page">
       <h1>Let's Chat</h1>
       <ul id="comments-grid" class="list-group"></ul>
-      <form id="comment-form" class="isHidden" action="/data" method="POST" onsubmit="return validateText()">
+      <form action="/data" method="POST" onsubmit="return validateText()" id="comment-form" class="isHidden">
         <label for="comment-box" id="comment-box-label">Drop a Comment!</label>
         <textarea name="text-input" id="comment-box"></textarea>
         <input type="submit" class="btn-success">
@@ -96,8 +97,9 @@
           <option value="50">50</option>
           <option value="1000">1000</option>
         </select>
-        <button type="button" class="btn btn-danger" id="delete"
-            onclick="deleteComments()">Delete All Comments</button>
+        <button type="button" class="btn btn-danger" id="delete"onclick="deleteComments()">
+          Delete All Comments
+        </button>
       </form>
     </section>
   </body>

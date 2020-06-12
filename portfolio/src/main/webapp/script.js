@@ -16,30 +16,39 @@
  * Fetches comments and appends them as list elements.
  */
 function getComments() {
-  fetch('/user').then((response) => response.text()).then((loginStatus) => {
-    loginObj = JSON.parse(loginStatus);
-    const commentLimit = document.getElementById('limit-comments').value;
+  
+  const commentLimit = document.getElementById('limit-comments').value;
 
-    // Get the comments from the database.
-    fetch('/data?limit-comments=' + commentLimit)
-        .then(response => response.text())
-        .then((comments) => {
-          const commentGrid = document.getElementById('comments-grid');
-          const commentsObj = JSON.parse(comments);
-          commentGrid.innerHTML = '';
-          commentsObj.forEach((comment) => {
-            const li = document.createElement('li');
-            li.append(Object.keys(comment)[0], ': ', 
-                Object.values(comment)[0]);
-            li.classList.add('list-group-item');
-            commentGrid.appendChild(li);
-          });
+  // Get the comments from the database.
+  fetch('/data?limit-comments=' + commentLimit)
+      .then(response => response.text())
+      .then((comments) => {
+        console.log(comments)
+        const commentGrid = document.getElementById('comments-grid');
+        const commentsObj = JSON.parse(comments);
+        commentGrid.innerHTML = '';
+        commentsObj.forEach((comment) => {
+          const li = document.createElement('li');
+          li.append(Object.keys(comment)[0], ': ', 
+              Object.values(comment)[0]);
+          li.classList.add('list-group-item');
+          commentGrid.appendChild(li);
         });
-
+      });
     // Determine if user is logged in and display comment submission if logged.
+    
+}
+
+function getLogin() {
+
+  getComments();
+  
+  fetch('/user').then((response) => response.text()).then((loginStatus) => { 
+    loginObj = JSON.parse(loginStatus);
+
     const logLink = document.createElement('a');
     logLink.append(' Here ');
-    
+
     if (loginObj.isLoggedIn) {
       document.getElementById('comment-form').classList.remove('isHidden');
       logLink.setAttribute('href', loginObj.logoutURL);
@@ -104,31 +113,23 @@ google.charts.setOnLoadCallback(drawChart);
  * Add a chart to the page.
  */
 function drawChart() {
-  var data= new google.visualization.arrayToDataTable(
-      [['Prases'],
-      ['I want to change the world'],
-      ['I am enjoying my time'],
-      ['I want to go back to school'],
-      ['I miss my friends'],
-      ['I am 19'],
-      ['I study Computer Science'],
-      ['I study African History'],
-      ['I want a massage'],
-      ['I miss my life at school'],
-      ['I have traveled to 10+ US States'],
-      ['I have traveled to 3 continents'],
-      ['I have traveled to Nigeria'],
-      ['I am Nigerian'],
-      ['I want to learn to cook']]
-  );
+  fetch('/wordtree').then((response) => response.text()).then((sentenceList) => {
+    console.log(JSON.parse(sentenceList));
+    var data = new google.visualization.arrayToDataTable(JSON.parse(sentenceList));
 
-  var options = {
-    wordtree: {
-      format: 'implicit',
-      word: 'I'
+    var options = {
+      wordtree: {
+        format: 'implicit',
+        word: 'I'
+      }
     }
-  };
 
-  var wordtree = new google.visualization.WordTree(document.getElementById('wordtree-page'));
-  wordtree.draw(data, options);
+    var wordtree = new google.visualization.WordTree(document.getElementById('wordtree-div'));
+    wordtree.draw(data, options);
+  });
+}
+
+function loadFunctions() {
+  getLogin();
+  drawChart();
 }
