@@ -120,9 +120,11 @@ function drawChart() {
     var data = new google.visualization.arrayToDataTable(dataList);
 
     var options = {
+      align: 'center',
+      backgroundColor: '#5e5d48',
       wordtree: {
         format: 'implicit',
-        word: 'I'
+        word: 'Black'
       }
     }
 
