@@ -48,7 +48,8 @@ public class WordTreeServlet extends HttpServlet {
     ArrayList<String[]> sentenceList = new ArrayList<String[]>();
     for (Entity sentence : sentenceEntityList) {
       String text = (String) sentence.getProperty("text");
-      String textArray[] = new String[] { text };
+      String fullText = "Black " + text.trim();
+      String textArray[] = new String[] { fullText };
       sentenceList.add(textArray);
     }
 
