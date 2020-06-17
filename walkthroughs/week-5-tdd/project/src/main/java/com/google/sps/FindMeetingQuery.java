@@ -14,7 +14,6 @@
 
 package com.google.sps;
 
-import java.util.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,16 +25,17 @@ import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+
     // List of all attendees requested
     Set<String> attendeesList = new HashSet<>(request.getAttendees());
 
     // Creates a map wth the key as the perosn's name and an empty list of their events.
-    HashMap<String, ArrayList<TimeRange>> scheduleMap = 
-        new HashMap<String, ArrayList<TimeRange>>();
+    HashMap<String, ArrayList<Event>> scheduleMap = 
+        new HashMap<String, ArrayList<Event>>();
 
     // Add a key (name of atendee) and empty list of attendee's events.
     for (String name : attendeesList) {
-      scheduleMap.put(name, new ArrayList<TimeRange>());
+      scheduleMap.put(name, new ArrayList<Event>());
     }
     
     // Iterate through all events, check if one of the requested attendees is in the listed event,
@@ -50,54 +50,56 @@ public final class FindMeetingQuery {
 
     // Iterate through each person's schedule and create TimeRanges for their free times whose
     // duration is greater than or equal to duration of the request.
-    HashMap<String, ArrayList<TimeRange>> availabilityMap = 
+    HashMap<String, ArrayList<TimeRange>> availabilityMap =
         new HashMap<String, ArrayList<TimeRange>>();
-    for (Map.Entry<String, ArrayList<TimeRange>> personSchedule : availabilityMap) {
+    for (Map.Entry<String, ArrayList<Event>> personSchedule : scheduleMap.entrySet()) {
       String name = personSchedule.getKey();
-      ArrayList<TimeRange> scheduleList = personSchedule.getValue();
+      ArrayList<Event> scheduleList = personSchedule.getValue();
       ArrayList<TimeRange> freeTimeList = new ArrayList<TimeRange>();
+      int scheduleSize = scheduleList.size();
 
       // Iterate through each event in the schedule and calculate free time between.
       // Start index 0 at beginning of day.
-      int scheduleSize = scheduleList.size();
       for (int i = 0; i <= scheduleSize; i++) {
-        TimeRange previousEvent;
-        TimeRange nextEvent;
+        Integer refInt = new Integer(i);
+        TimeRange previousEventTimeRange;
+        TimeRange nextEventTimeRange;
         int startFreeTime;
         int endFreeTime;
-        int durationFreeTime = startFreeTime - endFreeTime;
 
         // From the start of the day to the beginning of the first event.
-        if (i.equals(0)) {
+        if (refInt.equals(0)) {
           startFreeTime = TimeRange.START_OF_DAY;
-          nextEvent = scheduleList[i];
-          endFreeTime = nextEvent.start();
+          nextEventTimeRange = scheduleList.get(i).getWhen();
+          endFreeTime = nextEventTimeRange.start();
 
-        // From the end of the last event to the end of the day.       
-        } else if (i.equals(scheduleSize)) {
-          previousEvent = scheduleList[i-1];
-          startFreeTime = previousEvent.start() + previousEvent.duration();
+        // From the end of the last event to the end of the day.
+        } else if (refInt.equals(scheduleSize)) {
+          previousEventTimeRange = scheduleList.get(i-1).getWhen();
+          startFreeTime = previousEventTimeRange.end();
           endFreeTime = TimeRange.END_OF_DAY;
 
         // In between events during the day.
         } else {
-          previousEvent = scheduleList[i-1];
-          startFreeTime = previousEvent.start() + previousEvent.duration();
-          nextEvent = scheduleList[i];
-          endFreeTime = nextEvent.start();
+          previousEventTimeRange = scheduleList.get(i-1).getWhen();
+          startFreeTime = previousEventTimeRange.end();
+          nextEventTimeRange = scheduleList.get(i).getWhen();
+          endFreeTime = nextEventTimeRange.start();
         }
 
         // Validate if duration of free time is gretaer than or equal to duration of request.
+        int durationFreeTime = endFreeTime - startFreeTime;
         if (durationFreeTime >= request.getDuration()) {
-          TimeRange freeTime = new TimeRange(startFreeTime, durationFreeTime);
+          TimeRange freeTime = TimeRange.fromStartDuration(startFreeTime, durationFreeTime);
           freeTimeList.add(freeTime);
         }
       }
 
       availabilityMap.put(name, freeTimeList);
     }
-
-    System.out.print(availabilityMap);
+    System.out.println("===========================================================================");
+    System.out.println(availabilityMap);
+    return null;
   }
 }
 
