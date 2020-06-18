@@ -12,28 +12,62 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {packages : ['wordtree']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChart); 
+
 /**
  * Fetches comments and appends them as list elements.
  */
 function getComments() {
   const commentLimit = document.getElementById('limit-comments').value;
+
+  // Get the comments from the database.
   fetch('/data?limit-comments=' + commentLimit)
       .then(response => response.text())
       .then((comments) => {
-    const commentsObj = JSON.parse(comments);
-    const commentGrid = document.getElementById('comments-grid');
-    commentGrid.innerHTML = '';
-    commentsObj.forEach((comment) => {
-      const li = document.createElement('li');
-      li.innerText = comment;
-      li.classList.add('list-group-item');
-      commentGrid.appendChild(li);
-    });
+        const commentGrid = document.getElementById('comments-grid');
+        const commentsObj = JSON.parse(comments);
+        commentGrid.innerHTML = '';
+        commentsObj.forEach((comment) => {
+          const li = document.createElement('li');
+          li.append(Object.keys(comment)[0], ': ', 
+              Object.values(comment)[0]);
+          li.classList.add('list-group-item');
+          commentGrid.appendChild(li);
+        });
+      });
+}
+
+/**
+ * Determines if user is logged in and displays comment submission if logged.
+ */
+function getLogin() {
+  // Load the comments onto the page.
+  getComments();
+
+  fetch('/user').then((response) => response.text()).then((loginStatus) => { 
+    loginObj = JSON.parse(loginStatus);
+
+    const logLink = document.createElement('a');
+    logLink.append(' Here ');
+
+    if (loginObj.isLoggedIn) {
+      document.getElementById('comment-form').classList.remove('isHidden');
+      logLink.setAttribute('href', loginObj.logoutURL);
+      document.getElementById('comments').append('Logout', logLink);
+    } else {
+      logLink.setAttribute('href', loginObj.loginURL);
+      document.getElementById('comments')
+          .append('Sign in', logLink, 'to leave a comment');
+    }
   });
 }
 
 /**
- * Post request to delete comments.
+ * Posts request to delete comments.
  */
 function deleteComments() {
   fetch('/delete-data', {method: 'post'}).then(getComments());
@@ -74,3 +108,31 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 }
 
+/**
+ * Adds a chart to the page.
+ */
+function drawChart() {
+  fetch('/wordtree').then((response) => response.text()).then((sentenceJSONList) => {
+    sentenceListObj = JSON.parse(sentenceJSONList);
+    const dataList = [['Sentences']].concat(sentenceListObj);
+    let data = new google.visualization.arrayToDataTable(dataList);
+
+    let options = {
+      align: 'center',
+      backgroundColor: '#5e5d48',
+      wordtree: {
+        format: 'implicit',
+        word: 'Black',
+      }
+    }
+
+    var wordtree = new google.visualization
+        .WordTree(document.getElementById('wordtree-div'));
+    wordtree.draw(data, options);
+  });
+}
+
+function loadFunctions() {
+  getLogin();
+  drawChart();
+}

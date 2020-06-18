@@ -35,8 +35,8 @@
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-language</artifactId>
-      <version>1.55.0</version>
+      <artifactId>google-cloud-translate</artifactId>
+      <version>1.70.0</version>
     </dependency>
   </dependencies>
 
@@ -50,7 +50,7 @@
         <version>2.2.0</version>
         <configuration>
           <!-- TODO: set project ID. -->
-          <deploy.projectId>tolokungbemi-step-2020</deploy.projectId>
+          <deploy.projectId>tolokungbemi-steps-2020</deploy.projectId>
           <deploy.version>1</deploy.version>
         </configuration>
       </plugin>

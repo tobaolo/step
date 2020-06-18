@@ -81,6 +81,25 @@ p {
   width: 100%;
 }
 
+#wordtree {
+  background-color: #5e5d48;
+  color: black;
+  
+}
+
+#wordtree-div {
+  align-content: center;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 100%;
+}
+
+#wordtree-bottom {
+  margin: 0 auto;
+}
+
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .column {
@@ -135,4 +154,8 @@ instead of next to each other */
 #delete {
   float: right;
   margin-top: 10px;
+}
+
+.isHidden {
+  display: none;
 }
