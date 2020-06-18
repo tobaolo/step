@@ -28,7 +28,6 @@ function getComments() {
   fetch('/data?limit-comments=' + commentLimit)
       .then(response => response.text())
       .then((comments) => {
-        console.log(comments)
         const commentGrid = document.getElementById('comments-grid');
         const commentsObj = JSON.parse(comments);
         commentGrid.innerHTML = '';
@@ -116,7 +115,6 @@ function drawChart() {
   fetch('/wordtree').then((response) => response.text()).then((sentenceJSONList) => {
     sentenceListObj = JSON.parse(sentenceJSONList);
     const dataList = [['Sentences']].concat(sentenceListObj);
-    console.log(dataList);
     let data = new google.visualization.arrayToDataTable(dataList);
 
     let options = {
