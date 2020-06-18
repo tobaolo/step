@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', {packages:['wordtree']});
+google.charts.load('current', {packages : ['wordtree']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart); 
@@ -28,7 +28,6 @@ function getComments() {
   fetch('/data?limit-comments=' + commentLimit)
       .then(response => response.text())
       .then((comments) => {
-        console.log(comments)
         const commentGrid = document.getElementById('comments-grid');
         const commentsObj = JSON.parse(comments);
         commentGrid.innerHTML = '';
@@ -43,7 +42,7 @@ function getComments() {
 }
 
 /**
- * Determine if user is logged in and display comment submission if logged.
+ * Determines if user is logged in and displays comment submission if logged.
  */
 function getLogin() {
   // Load the comments onto the page.
@@ -68,7 +67,7 @@ function getLogin() {
 }
 
 /**
- * Post request to delete comments.
+ * Posts request to delete comments.
  */
 function deleteComments() {
   fetch('/delete-data', {method: 'post'}).then(getComments());
@@ -110,25 +109,25 @@ function addRandomQuote() {
 }
 
 /**
- * Add a chart to the page.
+ * Adds a chart to the page.
  */
 function drawChart() {
   fetch('/wordtree').then((response) => response.text()).then((sentenceJSONList) => {
     sentenceListObj = JSON.parse(sentenceJSONList);
     const dataList = [['Sentences']].concat(sentenceListObj);
-    console.log(dataList);
-    var data = new google.visualization.arrayToDataTable(dataList);
+    let data = new google.visualization.arrayToDataTable(dataList);
 
-    var options = {
+    let options = {
       align: 'center',
       backgroundColor: '#5e5d48',
       wordtree: {
         format: 'implicit',
-        word: 'Black'
+        word: 'Black',
       }
     }
 
-    var wordtree = new google.visualization.WordTree(document.getElementById('wordtree-div'));
+    var wordtree = new google.visualization
+        .WordTree(document.getElementById('wordtree-div'));
     wordtree.draw(data, options);
   });
 }
