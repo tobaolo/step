@@ -122,8 +122,6 @@ public final class FindMeetingQuery {
 
       availabilityMap.put(name, freeTimeList);
     }
-    System.out.println("===========================================================================");
-    System.out.println(availabilityMap);
 
     // Chekcs if none of the attendees have any free time in their schedule.
     if (attendeesList.size() > 0 && availabilityMap.size() == 0) {
@@ -132,11 +130,8 @@ public final class FindMeetingQuery {
 
     ArrayList<ArrayList<TimeRange>> freeTimeList = new ArrayList<ArrayList<TimeRange>>
         (availabilityMap.values());
-    System.out.println("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
     ArrayList<TimeRange> finalList = getAvailable(freeTimeList, request.getDuration());
     System.out.println(finalList);
-    
-    
 
     return finalList;
   }
@@ -161,7 +156,7 @@ public final class FindMeetingQuery {
         }
 
         // Compares the first 2 TimeRange in freeTimeList and returns the overlap if only 2 
-        // elements in freeTimeList or calls getAvailable recursively by replacing the first 2 
+        // elements in freeTimeList or calls getAvailable recursively by replacing the first 2
         // TimeRanges with their overlapped TimeRange
         ArrayList<TimeRange> freeTimeList1 = allFreeTimeList.get(0);
         ArrayList<TimeRange> freeTimeList2 = allFreeTimeList.get(1);
@@ -178,14 +173,16 @@ public final class FindMeetingQuery {
             
               // Verifies that the overlap duration is greater than or equal to request duration.
               if (overlapDuration >= requestDuration) {
-                TimeRange overlapTimeRange = TimeRange.fromStartDuration((int) overlapStart, (int) overlapDuration);
+                TimeRange overlapTimeRange = TimeRange
+                    .fromStartDuration((int) overlapStart, (int) overlapDuration);
 
                 // If there are more requested attendees in the allFreeTimeList, must compare their
                 // free time with the overlapped free time of previous requested attendees.
                 if (allFreeTimeListSize > 2) {
                   ArrayList<TimeRange> overlapArray = new ArrayList<TimeRange>();
                   overlapArray.add(overlapTimeRange);
-                  ArrayList<ArrayList<TimeRange>> newAllFreeTimeList = new ArrayList<ArrayList<TimeRange>>(allFreeTimeList.subList(2, allFreeTimeListSize));
+                  ArrayList<ArrayList<TimeRange>> newAllFreeTimeList = new ArrayList
+                      <ArrayList<TimeRange>>(allFreeTimeList.subList(2, allFreeTimeListSize));
                   newAllFreeTimeList.add(0, overlapArray);
                   availableOverlapList.addAll(getAvailable(newAllFreeTimeList, requestDuration));
                 }
